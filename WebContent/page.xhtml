@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html ng-app="eLibrary" 
+	lang="#{mwsContext.locale.toLanguageTag()}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:caf="http://webmethods.com/jsf/caf/fn"
+	xmlns:caf_f="http://webmethods.com/jsf/caf/core"
+	xmlns:caf_h="http://webmethods.com/jsf/caf/html"
+	xmlns:mws_ui="http://webmethods.com/jsf/mws_ui">
+<head>
+<title>Electronic Library</title>
+
+<script src="/electronic_library/ext/angularjs/angular.min.js"></script>
+<script src="/electronic_library/ext/angularjs/angular-resource.min.js"></script>
+<script src="/electronic_library/ext/angularjs/angular-route.min.js"></script>
+<script src="/electronic_library/ext/angularjs/angular-ui-router.min.js"></script>
+<script
+	src="/electronic_library/ext/angularjs/ui-bootstrap-tpls-1.2.5.min.js"></script>
+<script src="/electronic_library/ext/jquery/jquery-1.12.0.min.js"></script>
+<script src="/electronic_library/ext/jquery/jquery.js"></script>
+<script src="/electronic_library/ext/bootstrap/bootstrap.min.js"></script>
+<script src="/electronic_library/js/fileSaver.js"></script>
+
+
+<!-- CONTROLLERS -->
+<script src="/electronic_library/js/app.js"></script>
+<!--<script src="/electronic_library/js/dirPagination.js"></script>  -->
+<script src="/electronic_library/controller/userName.js"></script>
+<script src="/electronic_library/controller/includeController.js"></script>
+<script src="/electronic_library/controller/getAllOrderedBooks.js"></script>
+<script src="/electronic_library/controller/deliveryBook.js"></script>
+<script src="/electronic_library/controller/bookLib.js"></script>
+<script src="/electronic_library/controller/findBook.js"></script>
+<script src="/electronic_library/controller/uploadBook.js"></script>
+<script src="/electronic_library/controller/uploadLibraryBook.js"></script>
+<script src="/electronic_library/controller/newBook.js"></script>
+<script src="/electronic_library/controller/downloadBookController.js"></script>
+<script src="/electronic_library/controller/autoSearch.js"></script>
+<script src="/electronic_library/controller/tabsController.js"></script>
+<script src="/electronic_library/controller/paginationCtrl.js"></script>
+
+
+
+<!-- SERVICES -->
+<script src="/electronic_library/services/submitForm.js"></script>
+<script src="/electronic_library/services/restService.js"></script>
+
+<!-- DIRECTIVES -->
+<script src="/electronic_library/directives/fileModel.js"></script>
+
+<script src="/electronic_library/js/searchFilter.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<!-- Filters -->
+<script src="/electronic_library/filters/startFrom.js"></script>
+
+
+<link href="/electronic_library/ext/bootstrap/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="/electronic_library/ext/bootstrap/3-col-portfolio.css"
+	rel="stylesheet" />
+<link href="/electronic_library/ext/bootstrap/half-slider.css"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
+
+<link href="/electronic_library/ext/css/customStyle.css"
+	rel="stylesheet" />
+<style>
+#imaginary_container {
+	margin-top: 20%; /* Don't copy this */
+}
+
+.stylish-input-group .input-group-addon {
+	background: white !important;
+}
+
+.stylish-input-group .form-control {
+	border-right: 0;
+	box-shadow: 0 0 0;
+	border-color: #ccc;
+}
+
+.stylish-input-group button {
+	border: 0;
+	background: transparent;
+}
+</style>
+
+</head>
+<body  ng-controller="userName">
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img class="img-responsive"
+					src="/electronic_library/images/showcase-softwareag-i.png" alt="" /></a>
+				<a class="navbar-brand" href="#" style="margin-top: 5px">ELECTRONIC
+					LIBRARY</a> <span id="userRole" style="visibility: hidden">#{jaar.role}</span>
+				<span id="userEmail" ng-hide="1">#{jaar.email}</span>
+			</div>
+			<a href="/?method=logout"
+				style="float: right; font-size: medium; color: white; margin-top: 10px"><IMG
+				alt="" src="/electronic_library/images/arrow.png" /> </a>
+			<!-- /.navbar-collapse -->
+			<span style="color: white; float: right" id="employeeName">#{jaar.name}</span>
+			<!--   <input type="hidden" name="country" ng-model="userName=#{jaar.name}"/>-->
+
+		</div>
+
+		<!-- /.container -->
+	</nav>
+
+
+	<header id="myCarousel" class="carousel slide" style="margin-top: 1px"
+		ng-show="sliderFlag">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+
+		<!-- Wrapper for Slides -->
+		<div class="carousel-inner">
+			<div class="item active">
+				<!-- Set the first background image using inline CSS below. -->
+				<div class="fill"
+					style="background-image: url('/electronic_library/sliderImages/book1.jpg');"></div>
+				<div class="carousel-caption">
+					<h2>A BOOK IS A GIFT YOU CAN OPEN AGAIN AND AGAIN</h2>
+					<div>
+						<small>--Gerrison Keillor</small>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<!-- Set the second background image using inline CSS below. -->
+				<div class="fill"
+					style="background-image: url('/electronic_library/sliderImages/book2.jpg');"></div>
+				<div class="carousel-caption">
+					<h2>“You're never alone when you're reading a book.”</h2>
+					<div>
+						<small>--Susan Wiggs</small>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<!-- Set the third background image using inline CSS below. -->
+				<div class="fill"
+					style="background-image: url('/electronic_library/sliderImages/book3.jpg');"></div>
+				<div class="carousel-caption">
+					<h2>“Life is too short to read books that I'm not enjoying.”</h2>
+					<div>
+						<small>-- Melissa Marr</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Controls -->
+		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+			<span class="icon-prev"></span>
+		</a> <a class="right carousel-control" href="#myCarousel"
+			data-slide="next"> <span class="icon-next"></span>
+		</a>
+
+	</header>
+
+
+
+<!--  <div ng-controller="tabsController">-->
+	<!--  <div ng-controller='includeController'>-->
+		<!--  <div ng-include="getTabs()"></div>-->
+		
+			<!--  <div ng-include="getInclude()"></div>-->
+		<!--  </div>-->
+	<!--  </div>-->
+	<div ui-view=""></div>
+	<footer>
+		<div class="row">
+			<div class="col-lg-12">
+				<p>Copyright SOFTWAREAG 2016</p>
+			</div>
+		</div>
+		<!-- /.row -->
+	</footer>
+
+	<script>
+		$('.carousel').carousel({
+			interval : 3000
+		//changes the speed
+		})
+	</script>
+
+
+</body>
+</html>

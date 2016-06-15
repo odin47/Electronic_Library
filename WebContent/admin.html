@@ -1,0 +1,105 @@
+<div>
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#exampleModal" data-whatever="@mdo"
+		style="margin-top: 2cm; float: right; margin-right: 2cm;">UPLOAD
+		NEW BOOK</button>
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" ng-controller="uploadLibraryBook">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true"></span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Upload Book</h4>
+
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="upload_isbn" class="control-label">ISBN:</label> <input
+							type="text" class="form-control" id="upload_isbn"
+							ng-model="upload.ISBN" />
+					</div>
+					<div class="form-group">
+						<label for="upload_book_name" class="control-label">Book
+							Name:</label> <input type="text" class="form-control"
+							id="upload_book_name" ng-model="upload.BOOK_NAME" />
+					</div>
+					<div class="form-group">
+						<label for="upload_author" class="control-label">Author:</label> <input
+							type="text" class="form-control" id="upload_author"
+							ng-model="upload.AUTHOR" />
+					</div>
+					<div class="form-group">
+						<label for="upload_category" class="control-label">Category:</label>
+						<input type="text" class="form-control" id="upload_category"
+							ng-model="upload.CATEGORY" />
+					</div>
+					<div>
+						<label>Select Book</label> <input type="file" id="bookFile"
+							file-Model="upload.BOOK_DATA" />
+					</div>
+					<div>
+						<label>Select Cover</label> <input type="file" id="bookCover"
+							file-Model="upload.BOOK_COVER" />
+					</div>
+					<div ng-show="count">
+						<div class="alert alert-success">
+							<p>Book Successfully Added!!!</p>
+						</div>
+					</div>
+					<!--  <div ng-hide="count=='Service error'">
+								<div class="alert alert-success">
+									<p>Book Successfully Added!!!</p>
+								</div>
+							</div>-->
+
+
+					<div ng-show="count=='Service error'">
+						<div class="alert alert-danger" role="alert">
+							<p>Book not uploaded!!!</p>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-click="form_refresh()">Close</button>
+						<button type="submit" class="btn btn-primary" ng-click="Submit()">Upload</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div ng-controller="getAllOrderedBooks">
+<table class="table">
+<thead>
+	<tr>
+		<th>EMPLOYEE NAME</th>
+		<th>BOOK</th>
+		<th>ACTION</th>
+	</tr>
+</thead>
+<tbody>
+	
+	
+		<tr ng-repeat="order in AllOrderedBooks.results">
+			<td>{{order.EMP_NAME}}</td>
+			<td>{{order.BOOK_NAME}}</td>
+			<!-- <td ng-hide="1" id="orderEmail">{{order.email}}</td> -->
+			<td><button id="acceptBtn" type="button" class="btn btn-success" ng-click="bookAction($index,1)">Accept</button> 
+			<button id="rejectBtn" type="button" class="btn btn-danger" ng-click="bookAction($index,2)">Reject</button>
+			</td>
+		</tr>
+		
+	
+</tbody>
+</table>
+</div>

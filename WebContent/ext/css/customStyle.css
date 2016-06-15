@@ -1,0 +1,23 @@
+.chat_area {
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  text-align: right;
+}
+.chat_window {
+  display: inline-block;
+  width: 280px;
+  height: 200px;
+  background-color: #fff;
+  border: 1px solid #000;
+  z-index: 999;
+}
+.chat_header {
+  width: 100%;
+  height: 30px;
+  border-bottom: 1px solid #000;
+}
+.chat_header span {
+  font-size: 12px;
+  margin-left: 10px;
+}

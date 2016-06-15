@@ -1,0 +1,5 @@
+<expression-model><expression-tree>
+	<expression-node parent-path="UserNameDefaultviewView.userName.userNameProvider.userNameProvider" path="UserNameDefaultviewView.userName.userNameProvider.userNameProvider.user" type="java.lang.String">
+		<name>user</name>
+		<display-name>User</display-name>
+	</expression-node></expression-tree></expression-model>

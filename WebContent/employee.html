@@ -1,0 +1,335 @@
+
+<!-- SLIDER -->
+<div id="myCarousel" class="carousel slide" style="margin-top: 1px">
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		<li data-target="#myCarousel" data-slide-to="1"></li>
+		<li data-target="#myCarousel" data-slide-to="2"></li>
+	</ol>
+
+	<!-- Wrapper for Slides -->
+	<div class="carousel-inner">
+		<div class="item active">
+			<!-- Set the first background image using inline CSS below. -->
+			<div class="fill"
+				style="background-image: url('/electronic_library/sliderImages/book1.jpg');"></div>
+			<div class="carousel-caption">
+				<h2>A BOOK IS A GIFT YOU CAN OPEN AGAIN AND AGAIN</h2>
+				<div>
+					<small>--Gerrison Keillor</small>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<!-- Set the second background image using inline CSS below. -->
+			<div class="fill"
+				style="background-image: url('/electronic_library/sliderImages/book2.jpg');"></div>
+			<div class="carousel-caption">
+				<h2>“You're never alone when you're reading a book.”</h2>
+				<div>
+					<small>--Susan Wiggs</small>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<!-- Set the third background image using inline CSS below. -->
+			<div class="fill"
+				style="background-image: url('/electronic_library/sliderImages/book3.jpg');"></div>
+			<div class="carousel-caption">
+				<h2>“Life is too short to read books that I'm not enjoying.”</h2>
+				<div>
+					<small>-- Melissa Marr</small>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Controls -->
+	<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+		<span class="icon-prev"></span>
+	</a> <a class="right carousel-control" href="#myCarousel" data-slide="next">
+		<span class="icon-next"></span>
+	</a>
+
+</div>
+
+<!-- END OF SLIDER -->
+<!--  <div>
+			<form style="margin-top: 2cm; width: 30cm; padding-left: 2cm"
+				ng-submit="findBooks()">
+				<div class="form-group">
+					<label for="isbn">ISBN</label> <input type="text"
+						class="form-control" id="isbn" ng-model="library.isbn" />
+				</div>
+				<div class="form-group">
+					<label for="bookName">Book Name</label> <input type="text"
+						class="form-control" id="bookName" ng-model="library.book_name" />
+				</div>
+				<div class="form-group">
+					<label for="author">Author</label> <input type="text"
+						class="form-control" id="author" ng-model="library.author" />
+				</div>
+				<div class="form-group">
+					<label for="category">Category</label> <input type="text"
+						class="form-control" id="category" ng-model="library.category" />
+				</div>
+
+
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+		</div>-->
+
+
+
+<!--  <div class="container">
+	<div class="row">
+		<h2>Search Book</h2>
+           <div id="custom-search-input">
+                            <div class="input-group col-md-12">
+                                <input type="text" class="  search-query form-control autosuggesttextbox" placeholder="Search" bs-typeahead="datalists" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button">
+                                        <span class=" glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+	</div>
+</div> -->
+
+
+<!-- /.row -->
+
+<!-- <div>
+			<table class="table table-striped" style="margin-top: 2cm;">
+				<tr>
+					<th>ISBN</th>
+					<th>Book Name</th>
+					<th>Author</th>
+					<th>Category</th>
+				</tr>
+				<tr ng-repeat="book in libBooks.results">
+					<td>{{book.ISBN}}</td>
+					<td>{{ book.BOOK_NAME }}</td>
+					<td>{{ book.AUTHOR }}</td>
+					<td>{{ book.CATEGORY }}</td>
+				</tr>
+				<tr ng-repeat="book in libBooks.Book">
+					<td>{{book.ISBN}}</td>
+					<td>{{ book.BOOK_NAME }}</td>
+					<td>{{ book.AUTHOR }}</td>
+					<td>{{ book.CATEGORY }}</td>
+				</tr>
+			</table>
+
+		</div>-->
+
+
+
+<!-- SEARCHING -->
+
+
+<div ng-controller="newBookController">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<div id="imaginary_container">
+					<div class="input-group stylish-input-group ui-widget">
+						<input id="tags" type="text" class="form-control"
+							placeholder="Search Books" ng-keyup="complete()"
+							ng-model="searchBook" /> <span class="input-group-addon">
+							<button type="submit" ng-click="search()">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="container">
+
+			<!-- Page Header -->
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">
+						Books <small>All</small>
+					</h1>
+				</div>
+			</div>
+			<!-- /.row -->
+
+			<!-- Projects Row -->
+
+			<div ngif="newBooks.results" ng-repeat="book in newBooks.results | limitTo: pageSize :curPage * pageSize">
+				<div class="col-md-4 portfolio-item" data-toggle="modal"
+					data-target="#myModal" ng-click="display($index)">
+					<a href="#"> <img class="img-responsive"
+						src="http://localhost:8585/electronic_library/images/{{book.THUMBNAIL}}"
+						alt="" /></a>
+					<h3>
+						<a href="#">{{book.BOOK_NAME}}</a>
+					</h3>
+					<div>Author:{{book.AUTHOR}}</div>
+					<div>ISBN:<span id="isbn">{{book.ISBN}}</span></div>
+					<div>Category:{{book.CATEGORY}}</div>
+				</div>
+				<pagination total-items="newBooks.results.length"
+					ng-model="currentPage" items-per-page="pageSize"></pagination>
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" ng-controller='downloadBook' ng-init="orderResult.result=0">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true"></span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">{{name}}</h4>
+							</div>
+							<div class="modal-body">
+								<img class="img-responsive"
+									src="http://localhost:8585/electronic_library/images/{{image}}"
+									alt="" />
+							</div>
+							<div>Author:{{author}}</div>
+							<div>ISBN:{{isbn}}</div>
+							<div>Category:{{category}}</div>
+							<div ng-show="orderResult.result">
+								<div class="alert alert-success">
+									<p>Book has Been Ordered</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary"
+									ng-click="download()">Download Book</button>
+								<button type="button" class="btn btn-primary" ng-click="order()">Order
+									Book</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!--  <div class="col-md-4 portfolio-item">
+						<a href="#"> <img class="img-responsive"
+							src="http://placehold.it/700x400" alt=""/></a>
+						<h3>
+							<a href="#">Project Name</a>
+						</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+					</div>
+					<div class="col-md-4 portfolio-item">
+						<a href="#"> <img class="img-responsive"
+							src="http://placehold.it/700x400" alt=""/></a>
+						<h3>
+							<a href="#">Project Name</a>
+						</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+					</div>-->
+			</div>
+			<!-- /.row -->
+
+
+
+
+
+			<hr />
+			<!-- <div class="chat_area">
+					<div class='chat_window'>
+
+
+						<div class='chat_body'>
+							<a class="twitter-timeline"
+								href="https://twitter.com/hashtag/softwareag"
+								data-widget-id="710755685399572480">#softwareag Tweets</a>
+							<script>
+								!function(d, s, id) {
+									var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/
+											.test(d.location) ? 'http'
+											: 'https';
+									if (!d.getElementById(id)) {
+										js = d.createElement(s);
+										js.id = id;
+										js.src = p
+												+ "://platform.twitter.com/widgets.js";
+										fjs.parentNode.insertBefore(js, fjs);
+									}
+								}(document, "script", "twitter-wjs");
+							</script>
+
+
+						</div>
+					</div> -->
+
+
+
+		</div>
+
+		<!--Pagination div -->
+
+
+		<!-- Pagination -->
+		<!-- 		<div class="row text-center">
+				<div class="col-lg-12">
+					<ul class="pagination">
+
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+
+					</ul>
+				</div>
+			</div> -->
+		<!-- /.row -->
+		<!-- 		<div class="row text-center" ng-controller='paginationCtrl'>
+					<div class="pagination">
+						<ul>
+							<li ng-class="prevPageDisabled()"><a ng-click="prevPage()">«
+									Prev</a></li>
+							<li ng-repeat="n in range()"
+								ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+								<a href="#">{{n+1}}</a>
+							</li>
+							<li ng-class="nextPageDisabled()"><a href="" data-ng-click="nextPage()">Next
+									»</a></li>
+						</ul>
+					</div>
+					<hr />
+				</div>-->
+	</div>
+	<div class="row text-center">
+		<div ng-show="newBooks.results.length">
+			<ul class="pagination-controle pagination">
+				<li>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
+						&lt; PREV</button>
+				</li>
+				<li><span>Page {{curPage + 1}} of {{ numberOfPages() }}</span></li>
+				<li>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="curPage >= datalists.length/pageSize - 1"
+						ng-click="curPage = curPage+1">NEXT &gt;</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- Footer -->
+	
+</div>
+</div>
+<script>
+		$('.carousel').carousel({
+			interval : 3000
+		//changes the speed
+		})
+	</script>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsclients>
+<webservice authenticationMethod="1" isConnectionURL="http://localhost:5555/ws/wsd:libraryWSDL?WSDL" isService="wsd:libraryWSDL" name="libraryWSDL" package="caf.war.OpenCAFAPP.wsclient.wsd.librarywsdl" password="{AES}Y5IgMqjfvkgbg7p5VUZztw==" requiresAuth="true" soapLibrary="glue" useNamespaceForPackage="false" username="administrator" wsdlFile="src/caf/war/OpenCAFAPP/wsclient/wsd/librarywsdl/libraryWSDL.wsdl" wsdlURL="http://localhost:5555/ws/wsd:libraryWSDL?WSDL">
+<wsproxy className="caf.war.OpenCAFAPP.wsclient.wsd.librarywsdl.IlibraryWSDL_PortType">
+<wsclient managedBean="GetLibraryBookVersions" operation="getLibraryBookVersions"/>
+</wsproxy>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\IlibraryWSDL_PortType.java</generatedfile>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\libraryWSDLHelper.java</generatedfile>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\insertBook.java</generatedfile>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\Book.java</generatedfile>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\uploadFile.java</generatedfile>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\getLibraryBookVersionsResponse.java</generatedfile>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\getLibraryBookVersions.java</generatedfile>
+<generatedfile>caf\war\OpenCAFAPP\wsclient\wsd\librarywsdl\libraryWSDL.map</generatedfile>
+</webservice>
+</wsclients>

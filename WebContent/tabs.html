@@ -1,0 +1,16 @@
+<ul id = "myTab" class = "nav nav-tabs" ng-controller="tabsController">
+   <li  id="addBooks" ng-class="{active:isActive(addBooks)}">
+      <a  ui-sref="deliveryHome.deliveryBooks"  ng-click="select(addBooks)">
+         Add Books
+      </a>
+   </li>
+   
+   <li id="deliveryBooks" ng-class="{active:isActive(deliveryBooks)}">
+   <a ui-sref="deliveryHome.delivery"  ng-click="select(deliveryBooks)">Delivery Books</a></li>
+   <li id="receivedBooks" ><a ng-class="{active:isActive(receivedBooks)}" ng-click="select(receivedBooks)">Received Books</a></li>
+	
+  
+	
+</ul> 
+
+<div ui-view=""></div>

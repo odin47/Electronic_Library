@@ -1,0 +1,26 @@
+<div ng-controller="deliveryBooksAdd">
+	<div ng-controller="getAllOrderedBooks">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>EMPLOYEE NAME</th>
+					<th>BOOK</th>
+					<th>ACTION</th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<tr ng-repeat="delivery in deliveryBooks.results">
+					<td>{{delivery.EMP_NAME}}</td>
+					<td>{{delivery.BOOK_NAME}}</td>
+					<!-- <td ng-hide="1" id="orderEmail">{{order.email}}</td> -->
+					<td><button id="acceptBtn" type="button"
+							class="btn btn-success")" ng-click="bookAction($index,3)">Add</button></td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+</div>

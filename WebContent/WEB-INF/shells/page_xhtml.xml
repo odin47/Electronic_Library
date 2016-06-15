@@ -1,0 +1,54 @@
+<CONFIG xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.webmethods.com/schema/xmlImport.xsd"
+>
+  <!-- Custom Application Folders -->
+  <context alias="folder.custom.apps">
+    <folder name="Electronic_Library" userAlias="folder.Electronic_Library.page">
+      <page>
+        <row>
+          <column width="100%">
+            <!-- TODO: define any portlet instances you want to show on the page here -->
+            
+          </column>
+        </row>
+      </page>
+      <!-- TODO: define any additional nested sub-pages here -->
+    </folder>
+  </context>  
+
+  <!-- Declare WebSpace -->
+  <executeCommand commandName="addwebspace"
+      webspaceID="folder.Electronic_Library.page"
+      alias="app.Electronic_Library"
+  />  
+
+  <!-- Create Shell if it doesn't already exist -->
+  <context alias="folder.shells">
+    <wm_xt_shell unless="exists" 
+        name="Electronic_Library - page"
+        template="/electronic_library/page.xhtml"
+        parent="shell.blank"
+        userAlias="shell.Electronic_Library.page"/>
+  </context>
+  
+  <!-- Create Shell Rule if it doesn't already exist -->
+  <context alias="shell.rule.folder">
+    <wm_xt_portalrules unless="exists" 
+        name="Electronic_Library - page"
+        ruleText="portalResource isDescendant (&quot;folder.Electronic_Library.page&quot;)"
+        targetURI="shell.Electronic_Library.page"
+        info="-1"/>
+  </context>
+
+  
+  <!--  (optional) skin rule to match the shell rules. Uncomment if you want to specify a specific skin for your application pages. -->
+  <!--
+  <context alias="skin.rule.folder">
+    <wm_xt_portalrules unless="exists" 
+        name="Electronic_Library - page"
+        ruleText="portalResource isDescendant (&quot;folder.Electronic_Library.page&quot;)"
+        targetURI="skin.noodle.twilight"
+        info="-1"/>
+  </context>
+  -->
+</CONFIG>

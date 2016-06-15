@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="#{mwsContext.locale.toLanguageTag()}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:caf="http://webmethods.com/jsf/caf/fn"
+	xmlns:caf_f="http://webmethods.com/jsf/caf/core"
+	xmlns:caf_h="http://webmethods.com/jsf/caf/html"
+	xmlns:mws_ui="http://webmethods.com/jsf/mws_ui">
+<head>
+<title>Electronic Library</title>
+
+<script src="/electronic_library/ext/angularjs/angular.min.js"></script>
+<script src="/electronic_library/ext/angularjs/angular-resource.min.js"></script>
+<script src="/electronic_library/ext/angularjs/angular-route.min.js"></script>
+<script src="/electronic_library/ext/jquery/jquery-1.12.0.min.js"></script>
+<script src="/electronic_library/ext/jquery/jquery.js"></script>
+<script src="/electronic_library/ext/bootstrap/bootstrap.min.js"></script>
+<script src="/electronic_library/js/fileSaver.js"></script>
+
+<!-- CONTROLLERS -->
+<script src="/electronic_library/js/app.js"></script>
+<script src="/electronic_library/controller/bookLib.js"></script>
+<script src="/electronic_library/controller/findBook.js"></script>
+<script src="/electronic_library/controller/uploadBook.js"></script>
+<script src="/electronic_library/controller/uploadLibraryBook.js"></script>
+<script src="/electronic_library/controller/newBook.js"></script>
+<script src="/electronic_library/controller/downloadBookController.js"></script>
+<script src="/electronic_library/controller/autoSearch.js"></script>
+
+<!-- SERVICES -->
+<script src="/electronic_library/services/submitForm.js"></script>
+<script src="/electronic_library/services/restService.js"></script>
+
+<!-- DIRECTIVES -->
+<script src="/electronic_library/directives/fileModel.js"></script>
+
+<script src="/electronic_library/js/searchFilter.js"></script>
+
+
+<link href="/electronic_library/ext/bootstrap/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="/electronic_library/ext/bootstrap/3-col-portfolio.css"
+	rel="stylesheet" />
+<link href="/electronic_library/ext/bootstrap/half-slider.css"
+	rel="stylesheet" />
+
+
+
+</head>
+<body ng-app="eLibrary">
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img class="img-responsive"
+					src="/opencafapp/img/company-95x37.png" alt="" /></a> <a
+					class="navbar-brand" href="#">ELECTRONIC LIBRARY</a>
+
+			</div>
+			<a class="glyphicon glyphicon-log-out" href="/?method=logout"
+				style="float: right; font-size: medium; color: white;"> Logout</a>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+	<!-- SLIDER -->
+	<header id="myCarousel" class="carousel slide">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+
+		<!-- Wrapper for Slides -->
+		<div class="carousel-inner">
+			<div class="item active">
+				<!-- Set the first background image using inline CSS below. -->
+				<div class="fill"
+					style="background-image: url('/electronic_library/sliderImages/book1.jpg');"></div>
+				<div class="carousel-caption">
+					<h2>A BOOK IS A GIFT YOU CAN OPEN AGAIN AND AGAIN</h2>
+					<div>
+						<small>--Gerrison Keillor</small>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<!-- Set the second background image using inline CSS below. -->
+				<div class="fill"
+					style="background-image: url('/electronic_library/sliderImages/book2.jpg');"></div>
+				<div class="carousel-caption">
+					<h2>“You're never alone when you're reading a book.”</h2>
+					<div>
+						<small>--Susan Wiggs</small>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<!-- Set the third background image using inline CSS below. -->
+				<div class="fill"
+					style="background-image: url('/electronic_library/sliderImages/book3.jpg');"></div>
+				<div class="carousel-caption">
+					<h2>“Life is too short to read books that I'm not enjoying.”</h2>
+					<div>
+						<small>-- Melissa Marr</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Controls -->
+		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+			<span class="icon-prev"></span>
+		</a> <a class="right carousel-control" href="#myCarousel"
+			data-slide="next"> <span class="icon-next"></span>
+		</a>
+
+	</header>
+
+	<!-- END OF SLIDER -->
+	<!--  <div>
+			<form style="margin-top: 2cm; width: 30cm; padding-left: 2cm"
+				ng-submit="findBooks()">
+				<div class="form-group">
+					<label for="isbn">ISBN</label> <input type="text"
+						class="form-control" id="isbn" ng-model="library.isbn" />
+				</div>
+				<div class="form-group">
+					<label for="bookName">Book Name</label> <input type="text"
+						class="form-control" id="bookName" ng-model="library.book_name" />
+				</div>
+				<div class="form-group">
+					<label for="author">Author</label> <input type="text"
+						class="form-control" id="author" ng-model="library.author" />
+				</div>
+				<div class="form-group">
+					<label for="category">Category</label> <input type="text"
+						class="form-control" id="category" ng-model="library.category" />
+				</div>
+
+
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+		</div>-->
+
+	<div>
+		<button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#exampleModal" data-whatever="@mdo"
+			style="margin-top: 2cm; float: right; margin-right: 2cm;">UPLOAD
+			NEW BOOK</button>
+
+	</div>
+	
+	
+    <div ng-controller='DefaultCtrl'>
+        <input auto-complete ui-items="names" ng-model="selected">
+        selected = {{selected}}
+    </div>
+
+  
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" ng-controller="uploadLibraryBook">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+					<h4 class="modal-title" id="exampleModalLabel">Upload Book</h4>
+
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="upload_isbn" class="control-label">ISBN:</label> <input
+								type="text" class="form-control" id="upload_isbn"
+								ng-model="upload.ISBN" />
+						</div>
+						<div class="form-group">
+							<label for="upload_book_name" class="control-label">Book
+								Name:</label> <input type="text" class="form-control"
+								id="upload_book_name" ng-model="upload.BOOK_NAME" />
+						</div>
+						<div class="form-group">
+							<label for="upload_author" class="control-label">Author:</label>
+							<input type="text" class="form-control" id="upload_author"
+								ng-model="upload.AUTHOR" />
+						</div>
+						<div class="form-group">
+							<label for="upload_category" class="control-label">Category:</label>
+							<input type="text" class="form-control" id="upload_category"
+								ng-model="upload.CATEGORY" />
+						</div>
+						<div>
+							<label>Select Book</label> <input type="file" id="bookFile"
+								file-Model="upload.BOOK_DATA" />
+						</div>
+						<div>
+							<label>Select Cover</label> <input type="file" id="bookCover"
+								file-Model="upload.BOOK_COVER" />
+						</div>
+						<div ng-show="count">
+							<div class="alert alert-success">
+								<p>Book Successfully Added!!!</p>
+							</div>
+						</div>
+						<!--  <div ng-hide="count=='Service error'">
+								<div class="alert alert-success">
+									<p>Book Successfully Added!!!</p>
+								</div>
+							</div>-->
+
+
+						<div ng-show="count=='Service error'">
+							<div class="alert alert-danger" role="alert">
+								<p>Book not uploaded!!!</p>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" ng-click="form_refresh()">Close</button>
+							<button type="submit" class="btn btn-primary" ng-click="Submit()">Upload</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+
+	<!-- <div>
+			<table class="table table-striped" style="margin-top: 2cm;">
+				<tr>
+					<th>ISBN</th>
+					<th>Book Name</th>
+					<th>Author</th>
+					<th>Category</th>
+				</tr>
+				<tr ng-repeat="book in libBooks.results">
+					<td>{{book.ISBN}}</td>
+					<td>{{ book.BOOK_NAME }}</td>
+					<td>{{ book.AUTHOR }}</td>
+					<td>{{ book.CATEGORY }}</td>
+				</tr>
+				<tr ng-repeat="book in libBooks.Book">
+					<td>{{book.ISBN}}</td>
+					<td>{{ book.BOOK_NAME }}</td>
+					<td>{{ book.AUTHOR }}</td>
+					<td>{{ book.CATEGORY }}</td>
+				</tr>
+			</table>
+
+		</div>-->
+
+	<div ng-controller='newBookController'>
+		<div class="container">
+
+			<!-- Page Header -->
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">
+						Books <small>All</small>
+					</h1>
+				</div>
+			</div>
+			<!-- /.row -->
+
+			<!-- Projects Row -->
+
+			<div ng-repeat="book in newBooks.results">
+				<div class="col-md-4 portfolio-item" data-toggle="modal"
+					data-target="#myModal" ng-click="display($index)">
+					<a href="#"> <img class="img-responsive"
+						src="http://localhost:8585/electronic_library/images/{{book.THUMBNAIL}}"
+						alt="" /></a>
+					<h3>
+						<a href="#">{{book.BOOK_NAME}}</a>
+					</h3>
+					<div>Author:{{book.AUTHOR}}</div>
+					<div>ISBN:{{book.ISBN}}</div>
+					<div>Category:{{book.CATEGORY}}</div>
+				</div>
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" ng-controller='downloadBook'>
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true"></span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">{{name}}</h4>
+							</div>
+							<div class="modal-body">
+								<img class="img-responsive"
+									src="http://localhost:8585/electronic_library/images/{{image}}"
+									alt="" />
+							</div>
+							<div>Author:{{author}}</div>
+							<div>ISBN:{{isbn}}</div>
+							<div>Category:{{category}}</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary"
+									ng-click="download()">Download Book</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--  <div class="col-md-4 portfolio-item">
+						<a href="#"> <img class="img-responsive"
+							src="http://placehold.it/700x400" alt=""/></a>
+						<h3>
+							<a href="#">Project Name</a>
+						</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+					</div>
+					<div class="col-md-4 portfolio-item">
+						<a href="#"> <img class="img-responsive"
+							src="http://placehold.it/700x400" alt=""/></a>
+						<h3>
+							<a href="#">Project Name</a>
+						</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+					</div>-->
+			</div>
+			<!-- /.row -->
+
+
+
+
+
+			<hr />
+
+			<!-- Pagination -->
+			<div class="row text-center">
+				<div class="col-lg-12">
+					<ul class="pagination">
+
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<!-- /.row -->
+
+			<hr />
+
+			<!-- Footer -->
+			<footer>
+				<div class="row">
+					<div class="col-lg-12">
+						<p>Copyright SOFTWAREAG 2016</p>
+					</div>
+				</div>
+				<!-- /.row -->
+			</footer>
+
+		</div>
+	</div>
+	<script>
+    $('.carousel').carousel({
+        interval: 3000 //changes the speed
+    })
+    </script>
+
+
+</body>
+</html>

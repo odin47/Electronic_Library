@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="libraryWSDL" targetNamespace="http://MCDPOD01.eur.ad.sag/wsd:libraryWSDL" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://MCDPOD01.eur.ad.sag/wsd:libraryWSDL" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://MCDPOD01.eur.ad.sag/wsd:libraryWSDL" xmlns:tns="http://MCDPOD01.eur.ad.sag/wsd:libraryWSDL" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          <xsd:element name="getLibraryBookVersions" type="tns:getLibraryBookVersions"/>
+          <xsd:element name="getLibraryBookVersionsResponse" type="tns:getLibraryBookVersionsResponse"/>
+          <xsd:element name="insertBook" type="tns:insertBook"/>
+          <xsd:complexType name="getLibraryBookVersions">
+            <xsd:sequence>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="getLibraryBookVersionsResponse">
+            <xsd:sequence>
+              <xsd:element name="libraryBooks" nillable="true" type="tns:Books"/>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="Books">
+            <xsd:sequence>
+              <xsd:element maxOccurs="unbounded" name="Book" nillable="true" type="tns:Book"/>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="Book">
+            <xsd:sequence>
+              <xsd:element name="ISBN" nillable="true" type="xsd:string"/>
+              <xsd:element name="BOOK_NAME" nillable="true" type="xsd:string"/>
+              <xsd:element name="AUTHOR" nillable="true" type="xsd:string"/>
+              <xsd:element name="CATEGORY" nillable="true" type="xsd:string"/>
+              <xsd:element name="VERSIONS" nillable="true" type="xsd:int"/>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="insertBook">
+            <xsd:sequence>
+              <xsd:element name="ISBN" nillable="true" type="xsd:string"/>
+              <xsd:element name="BOOK_NAME" nillable="true" type="xsd:string"/>
+              <xsd:element name="AUTHOR" nillable="true" type="xsd:string"/>
+              <xsd:element name="CATEGORY" nillable="true" type="xsd:string"/>
+              <xsd:element name="uploadFile" nillable="true" type="tns:uploadFile"/>
+            </xsd:sequence>
+          </xsd:complexType>
+          <xsd:complexType name="uploadFile">
+            <xsd:sequence>
+              <xsd:element name="BOOK_DATE" nillable="true" type="xsd:anyType"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        	</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="libraryWSDL_PortType_getLibraryBookVersionsResponse">
+    <wsdl:part name="parameters" element="tns:getLibraryBookVersionsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="libraryWSDL_PortType_insertBook">
+    <wsdl:part name="parameters" element="tns:insertBook">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="libraryWSDL_PortType_getLibraryBookVersions">
+    <wsdl:part name="parameters" element="tns:getLibraryBookVersions">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="libraryWSDL_PortType">
+    <wsdl:operation name="insertBook">
+      <wsdl:input message="tns:libraryWSDL_PortType_insertBook">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getLibraryBookVersions">
+      <wsdl:input message="tns:libraryWSDL_PortType_getLibraryBookVersions">
+    </wsdl:input>
+      <wsdl:output message="tns:libraryWSDL_PortType_getLibraryBookVersionsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="wsd_libraryWSDL_Binder" type="tns:libraryWSDL_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="insertBook">
+      <soap:operation soapAction="wsd_libraryWSDL_Binder_insertBook" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getLibraryBookVersions">
+      <soap:operation soapAction="wsd_libraryWSDL_Binder_getLibraryBookVersions" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wsd.libraryWSDL">
+    <wsdl:port name="wsd_libraryWSDL_Port" binding="tns:wsd_libraryWSDL_Binder">
+      <soap:address location="http://MCDPOD01.eur.ad.sag:5555/ws/wsd.libraryWSDL/wsd_libraryWSDL_Port"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
